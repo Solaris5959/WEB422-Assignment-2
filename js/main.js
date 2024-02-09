@@ -14,6 +14,9 @@ let page = 1;
 const perPage = 10;
 let searchName = null;
 
+/**
+ * Loads listings data from the server and updates the table, pagination buttons, and click events.
+ */
 function loadListingsData() {
   const url = `/api/listings?page=${page}&perPage=${perPage}${
     searchName ? `&name=${searchName}` : ""
@@ -38,6 +41,10 @@ function loadListingsData() {
     });
 }
 
+/**
+ * Updates the table with the provided data.
+ * @param {Array} data - The data to populate the table with.
+ */
 function updateTable(data) {
   const tableBody = document
     .getElementById("listingsTable")
@@ -85,6 +92,9 @@ function updateTable(data) {
   }
 }
 
+/**
+ * Adds click events to each row in the listings table.
+ */
 function addClickEvents() {
   const rows = document
     .getElementById("listingsTable")
@@ -98,6 +108,10 @@ function addClickEvents() {
   });
 }
 
+/**
+ * Loads the details of a listing.
+ * @param {number} listingId - The ID of the listing.
+ */
 function loadListingDetails(listingId) {
   const detailsUrl = `/api/listings/${listingId}`;
 
@@ -153,6 +167,11 @@ function loadListingDetails(listingId) {
     });
 }
 
+/**
+ * Populates the modal with the details of a listing.
+ * @param {Object} listing - The listing object containing the details.
+ * @returns {void}
+ */
 function populateModal(listing) {
   const modalImage = document.getElementById("modalImage");
   const modalDetails = document.getElementById("modalDetails");
@@ -176,6 +195,10 @@ function populateModal(listing) {
                            } (${listing.number_of_reviews || 0} Reviews)`;
 }
 
+/**
+ * Updates the pagination buttons based on the current page and data length.
+ * @param {Array} data - The data used for pagination.
+ */
 function updatePaginationButtons(data) {
   document.getElementById("current-page").textContent = page;
 
@@ -186,6 +209,9 @@ function updatePaginationButtons(data) {
   nextPageButton.disabled = page * perPage >= data.length;
 }
 
+/**
+ * Displays a message indicating that no data is available in the table.
+ */
 function showNoDataMessage() {
   const tableBody = document
     .getElementById("listingsTable")
@@ -193,6 +219,10 @@ function showNoDataMessage() {
   tableBody.innerHTML = `<tr><td colspan="4"><strong>No data available</strong></td></tr>`;
 }
 
+/**
+ * Updates the pagination buttons based on the current page and data length.
+ * @param {Array} data - The data used for pagination.
+ */
 function updatePaginationButtons(data) {
   document.getElementById("current-page").textContent = page;
 
@@ -203,6 +233,9 @@ function updatePaginationButtons(data) {
   nextPageButton.disabled = page * perPage >= data.length;
 }
 
+/**
+ * Adds event listeners to the pagination buttons, search form, search button, and clear form button.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   loadListingsData();
 

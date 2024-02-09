@@ -10,6 +10,7 @@
 * Published URL: https://good-cyan-moose-veil.cyclic.app/
 *********************************************************************************/
 
+// Import required modules / Setup
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv").config();
@@ -23,6 +24,7 @@ const HTTP_PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
+// Connect to MongoDB and start the server
 db.initialize(process.env.MONGODB_CONN_STRING).then(() => {
     app.use(express.static(__dirname));
 
@@ -47,7 +49,7 @@ app.post("/api/listings", async (req, res) => {
   }
 });
 
-// Get listings with optional filters
+// Get all listings
 app.get("/api/listings", async (req, res) => {
   try {
     const { page, perPage, name } = req.query;
@@ -58,7 +60,7 @@ app.get("/api/listings", async (req, res) => {
   }
 });
 
-// Get a specific listing by ID
+// Get a listing by ID
 app.get("/api/listings/:id", async (req, res) => {
   try {
     const listing = await db.getListingById(req.params.id);
